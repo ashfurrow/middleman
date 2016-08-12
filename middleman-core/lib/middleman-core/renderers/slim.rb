@@ -38,11 +38,11 @@ module Middleman
           app.after_configuration do
             context_hack = {
               context: self
-            }
+           }
 
             ::Slim::Embedded::SassEngine.disable_option_validator!
             %w(sass scss markdown).each do |engine|
-              ::Slim::Embedded.options[engine.to_sym] = context_hack
+              (::Slim::Embedded.options[engine.to_sym] ||= {}).merge! context_hack
             end
           end
         end
